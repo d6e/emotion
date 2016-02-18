@@ -14,6 +14,8 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description=sys.modules[__name__].__doc__)
     parser.add_argument('-l','--list', action="store_true",
                         help="List all available emotes.")
+    parser.add_argument('-s','--silent', action="store_true",
+                        help="Don't print to stdout.")
     parser.add_argument("name", type=str, nargs='?',
                         help="The name of the emote.")
 
@@ -27,11 +29,12 @@ def list_emotes(emotes):
     print [e for e in emotes.keys()]
     print [e for e in emotes.values()]
 
-def print_emote(name, emotes):
+def print_emote(name, emotes, silent=False):
     try:
         emote = emotes[name]
         pyperclip.copy(emote)
-        print emote
+        if not silent:
+            print emote
     except KeyError:
         print("That emote does not exist. You can see all existing emotes "
         "with the command: `emote -l`.")
@@ -42,7 +45,7 @@ def main():
     if args.list:
         list_emotes(emotes)
     if args.name:
-        print_emote(args.name, emotes)
+        print_emote(args.name, emotes, silent=args.silent)
 
 
 if __name__ == "__main__":
