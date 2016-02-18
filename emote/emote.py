@@ -8,7 +8,7 @@ import argparse
 def read_emote_mapping(filename="mapping.json"):
     # TODO: Read from an env var and a harcoded .dotfile
     with open(filename) as f:
-        return json.load(f)
+        return json.loads(f.read().decode('utf-8'))
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description=sys.modules[__name__].__doc__)
@@ -20,16 +20,16 @@ def parse_arguments():
                         help="Don't copy to clipboard.")
     parser.add_argument("name", type=str, nargs='?',
                         help="The name of the emote.")
-
-    # Print help if no cli args are specified.
     if len(sys.argv) < 2:
         parser.print_help()
         sys.exit(0)
     return parser.parse_args()
 
 def list_emotes(emotes):
-    print [e for e in emotes.keys()]
-    print [e for e in emotes.values()]
+    for k, v in emotes.iteritems():
+        whitespace = 30
+        pad = whitespace - len(k)
+        print "{}{}{}".format(k.encode('utf-8'), " "*pad, v.encode('utf-8'))
 
 def print_emote(name, emotes, silent=False, clipboard=True):
     try:
@@ -50,7 +50,6 @@ def main():
     if args.name:
         print_emote(args.name, emotes, silent=args.silent,
                     clipboard=args.no_clipboard)
-
 
 if __name__ == "__main__":
     main()
