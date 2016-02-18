@@ -28,7 +28,9 @@ def list_emotes(emotes):
 
 def print_emote(name, emotes):
     try:
-        print emotes[name]
+        emote = emotes[name]
+        pyperclip.copy(emote)
+        print emote
     except KeyError:
         print("That emote does not exist. You can see all existing emotes "
         "with the command: `emote -l`.")
