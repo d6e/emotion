@@ -14,7 +14,8 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description=sys.modules[__name__].__doc__)
     parser.add_argument('-l','--list', action="store_true",
                         help="List all available emotes.")
-    parser.add_argument("name", type=str, help="The name of the emote.")
+    parser.add_argument("name", type=str, nargs='?',
+                        help="The name of the emote.")
 
     # Print help if no cli args are specified.
     if len(sys.argv) < 2:
