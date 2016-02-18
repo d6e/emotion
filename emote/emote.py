@@ -25,17 +25,20 @@ def list_emotes():
     print [e for e in emotes.keys()]
     print [e for e in emotes.values()]
 
+def print_emote():
+    try:
+        print emotes[args.name]
+    except KeyError:
+        print("That emote does not exist. You can see all existing emotes "
+        "with the command: `emote -l`.")
+
+
 def main():
     args = parse_arguments()
     if args.list:
         list_emotes()
     if args.name:
-        try:
-            print emotes[args.name]
-        except KeyError:
-            print("That emote does not exist. You can see all existing emotes "
-            "with the command: `emote -l`.")
-
+        print_emote()
 
 
 if __name__ == "__main__":
