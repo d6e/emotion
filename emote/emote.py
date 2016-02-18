@@ -1,14 +1,17 @@
 """ A simple CLI tool for quickly copying common emoticon/emoji to your
 clipboard. """
 import pyperclip
+import argparse
 import json
 import sys
-import argparse
+import os
 
-def read_emote_mapping(filename="mapping.json"):
-    # TODO: Read from an env var and a harcoded .dotfile
-    with open(filename) as f:
-        return json.loads(f.read().decode('utf-8'))
+def read_emote_mappings(filename="mapping.json"):
+    emotes = {}
+    for fname in [filename, os.path.expanduser("~/.emotes.json")]:
+        with open(fname) as f:
+            emotes.update(json.loads(f.read().decode('utf-8')))
+    return emotes
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description=sys.modules[__name__].__doc__)
@@ -44,7 +47,7 @@ def print_emote(name, emotes, silent=False, clipboard=True):
 
 def main():
     args = parse_arguments()
-    emotes = read_emote_mapping()
+    emotes = read_emote_mappings()
     if args.list:
         list_emotes(emotes)
     if args.name:
