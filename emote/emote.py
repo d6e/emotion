@@ -15,5 +15,9 @@ def main():
     parser.add_argument('-p','--web_port')
     args = parser.parse_args()
 
+    # Print help if no cli args are specified.
+    if len(sys.argv) < 2:
+        parser.print_help()
+
 if __name__ == "__main__":
     main()
