@@ -12,6 +12,6 @@ setuptools.setup(
     install_requires=['pyperclip'],
     url="https://github.com/d6e/emote",
     entry_points={
-            "console_scripts": ["emote = emote:parse_cli"],
+        "console_scripts": ["emote = emote.emote:main"],
     }
 )
