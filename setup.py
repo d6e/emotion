@@ -11,6 +11,6 @@ setuptools.setup(
     install_requires=['pyperclip'],
     url="",
     entry_points={
-            "console_scripts": ["{0} = emote:parse_cli"],
+            "console_scripts": ["emote = emote:parse_cli"],
     }
 )
