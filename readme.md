@@ -20,7 +20,7 @@ $ cat ~/.emotes.json
 ```
 
 ```
-$ emote -l
+$ emotion -l
 shrug                         ¯\_(ツ)_/¯
 whale                         🐳
 tableflip                     (╯°□°)╯︵ ┻━┻
