@@ -16,6 +16,8 @@ def parse_arguments():
                         help="List all available emotes.")
     parser.add_argument('-s','--silent', action="store_true",
                         help="Don't print to stdout.")
+    parser.add_argument('--no-clipboard', action="store_false",
+                        help="Don't copy to clipboard.")
     parser.add_argument("name", type=str, nargs='?',
                         help="The name of the emote.")
 
@@ -29,10 +31,11 @@ def list_emotes(emotes):
     print [e for e in emotes.keys()]
     print [e for e in emotes.values()]
 
-def print_emote(name, emotes, silent=False):
+def print_emote(name, emotes, silent=False, clipboard=True):
     try:
         emote = emotes[name]
-        pyperclip.copy(emote)
+        if clipboard:
+            pyperclip.copy(emote)
         if not silent:
             print emote
     except KeyError:
@@ -45,7 +48,8 @@ def main():
     if args.list:
         list_emotes(emotes)
     if args.name:
-        print_emote(args.name, emotes, silent=args.silent)
+        print_emote(args.name, emotes, silent=args.silent,
+                    clipboard=args.no_clipboard)
 
 
 if __name__ == "__main__":
