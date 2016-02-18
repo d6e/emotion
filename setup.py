@@ -1,4 +1,5 @@
 import setuptools
+import emote
 
 setuptools.setup(
     name="emote",
@@ -7,7 +8,7 @@ setuptools.setup(
     include_package_data=True,
     author="Danielle Jenkins",
     author_email="d@d6e.io",
-    description="A simple emote tool for quickly fetching common emoticon/emoji.",
+    description=emote.__doc__,
     install_requires=['pyperclip'],
     url="https://github.com/d6e/emote",
     entry_points={
