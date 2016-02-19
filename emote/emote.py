@@ -6,12 +6,14 @@ import json
 import sys
 import os
 
-def read_emote_mappings(filename="mapping.json"):
-    emotes = {}
-    for fname in [filename, os.path.expanduser("~/.emotes.json")]:
+def read_emote_mappings(json_obj_files=[]):
+    """ Reads the contents of a list of files of json objects and combines
+    them into one large json object. """
+    super_json = {}
+    for fname in json_obj_files:
         with open(fname) as f:
-            emotes.update(json.loads(f.read().decode('utf-8')))
-    return emotes
+            super_json.update(json.loads(f.read().decode('utf-8')))
+    return super_json
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description=sys.modules[__name__].__doc__)
@@ -47,7 +49,11 @@ def print_emote(name, emotes, silent=False, clipboard=True):
 
 def main():
     args = parse_arguments()
-    emotes = read_emote_mappings()
+    emote_files = [
+        os.path.join(os.path.dirname(__file__), 'mapping.json'),
+        os.path.expanduser("~/.emotes.json")
+    ]
+    emotes = read_emote_mappings(emote_files)
     if args.list:
         list_emotes(emotes)
     if args.name:
